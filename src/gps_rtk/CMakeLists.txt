@@ -150,6 +150,9 @@ add_executable(gps_rtk src/gps_rtk.cpp)
 target_link_libraries(
 gps_rtk ${catkin_LIBRARIES}
 )
+target_link_libraries(
+gps_rtk2 ${catkin_LIBRARIES}
+)
 
 #target_link_libraries(
 #gps_pub ublox
