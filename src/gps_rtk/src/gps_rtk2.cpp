@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	ros::Publisher gps_rtk = n.advertise<sensor_msgs::NavSatFix>("gps_readings", 1000);
 	ros::Rate loop_rate(10);
 	
-	//double pos_data[3];
+	double pos_data[3];
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
 	while(ros::ok()){
@@ -51,9 +51,15 @@ int main(int argc, char *argv[])
 		fp = popen("nc 192.168.2.15 9001", "r");
 		fgets(buff, sizeof(buff)-1,fp);
 		token = strtok(buff, delim);
-		int i=0;
-		while( token != NULL ) {
-			printf( "i: %s\n", token);
+		int i=1;
+		while( token != NULL && i<4) {
+			//printf( "i: %s\n", token);
+			if(i=2){
+				printf("lat = %s\n,token");
+			}
+			if(i=3){
+				printf("lon = %s\n,token");
+			}
 			token = strtok(NULL, delim);
 			i++;
 		}
