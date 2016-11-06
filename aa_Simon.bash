@@ -38,7 +38,7 @@ then
     tmux send-keys "sleep 5" C-m
     tmux send-keys "sudo -i" C-m
     tmux send-keys "source /home/pi/catkin_ws/devel/setup.bash" C-m
-    tmux send-keys "rosrun gps_rtk gps_rtk" C-m
+    tmux send-keys "rosrun gps_rtk gps_rtk2" C-m
 elif [ "$#" -eq 5 ]
 then
     echo "Here we go WITHOUT log files"
