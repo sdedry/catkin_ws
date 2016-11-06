@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 		  update_gps_msg(&gps_msg, pos_data);
 		  gps_rtk.publish(gps_msg);
 		  i++;
+		ROS_INFO("Allez";
 		}
 		free(token);
 		free(str);
