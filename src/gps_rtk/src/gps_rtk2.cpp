@@ -39,11 +39,13 @@ int main(int argc, char *argv[])
 	ros::Publisher gps_rtk = n.advertise<sensor_msgs::NavSatFix>("gps_readings", 1000);
 	ros::Rate loop_rate(10);
 	
-	double pos_data[3];
-	sensor_msgs::NavSatFix gps_msg;
-	init_gps_msg(&gps_msg);
-	
-	FILE *fp;
+	//double pos_data[3];
+	//sensor_msgs::NavSatFix gps_msg;
+	//init_gps_msg(&gps_msg);
+	while(ros::ok()){
+		printf("ça run a une freq de 10");
+	}
+	/*FILE *fp;
 	char path[1035]; //creates an array that can store un to 1035 characters
 
 	fp = popen("nc 192.168.2.15 9001", "r"); //reads a file given by nc 192.168.2.15 and creates fp
@@ -59,7 +61,7 @@ int main(int argc, char *argv[])
 		//ROS_INFO("voici de quoi est compose la chaine :%c",&str);
 		//char *token;
 		//int i = 0;
-		/* while((token = strsep(&str, "   "))) //puts it into a word
+		while((token = strsep(&str, "   "))) //puts it into a word
 		{
 		  if(i == 4)
 		  {
@@ -87,8 +89,8 @@ int main(int argc, char *argv[])
 		}
 		free(token);
 		free(str);
-		loop_rate.sleep();*/
-	}
+		loop_rate.sleep();
+	}*/
 
 	pclose(fp);
 	return 0;
