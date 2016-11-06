@@ -44,21 +44,23 @@ int main(int argc, char *argv[])
 	init_gps_msg(&gps_msg);
 	
 	FILE *fp;
-	char path[1035];
+	char path[1035]; //creates an array that can store un to 1035 characters
 
-	fp = popen("nc 192.168.2.15 9001", "r");
+	fp = popen("nc 192.168.2.15 9001", "r"); //reads a file given by nc 192.168.2.15 and creates fp
 	if (fp == NULL)
+		
 	{
-		printf("Failed to run command\n");
+		printf("Failed to run command\n"); // fp is empty
 		exit(1);
 	}
 
-	while(fgets(path, sizeof(path)-1,fp) != NULL && ros::ok())
+	while(fgets(path, sizeof(path)-1,fp) != NULL && ros::ok()) // fgets takes a certain line in fp and puts it in path
 	{
-		char *str = strdup(path);
+		char *str = strdup(path); //duplicate the string of path in str
+		ROS_INFO(&str);
 		char *token;
 		int i = 0;
-		while((token = strsep(&str, "   ")))
+		while((token = strsep(&str, "   "))) //puts it into a word
 		{
 		  if(i == 4)
 		  {
@@ -82,7 +84,7 @@ int main(int argc, char *argv[])
 		  update_gps_msg(&gps_msg, pos_data);
 		  gps_rtk.publish(gps_msg);
 		  i++;
-		ROS_INFO("Allez");
+		//ROS_INFO("Allez");
 		}
 		free(token);
 		free(str);
