@@ -53,15 +53,15 @@ int main(int argc, char *argv[])
 		token = strtok(buff, delim);
 		int i=1;
 		while( token != NULL && i<4) {
-			//printf( "i: %s\n", token);
-			if(i=2){
+			printf( "%i: %s\n",i, token);
+			/*if(i=2){
 				printf("lat = %s\n,token");
 			}
 			if(i=3){
 				printf("lon = %s\n,token");
 			}
 			token = strtok(NULL, delim);
-			i++;
+			i++;*/
 		}
 		
 		//printf("%s \n",buff);
