@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		fgets(buff, sizeof(buff)-1,fp);
 		token = strtok(buff, delim);
 		int i=1;
-		while( token != NULL && i<4) {
+		while( token != NULL) {
 			printf( "%i: %s\n",i, token);
 			/*if(i=2){
 				printf("lat = %s\n,token");
