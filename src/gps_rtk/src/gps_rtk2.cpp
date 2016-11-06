@@ -43,7 +43,13 @@ int main(int argc, char *argv[])
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
 	while(ros::ok()){
-		printf("ça run a une freq de 10 /n");
+		//printf("ça run a une freq de 10 /n");
+		FILE *fp;
+		char buff[1035];
+		fp = popen("nc 192.168.2.15 9001", "r");
+		while(fgets(buff, sizeof(buff)-1,fp) != NULL){
+			printf("%s \n",buff)
+		}
 	}
 	/*FILE *fp;
 	char path[1035]; //creates an array that can store un to 1035 characters
