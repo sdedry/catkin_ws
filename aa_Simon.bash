@@ -21,7 +21,7 @@ then
     tmux send-keys "sleep 5" C-m
     tmux send-keys "sudo -i" C-m
     tmux send-keys "source /home/pi/catkin_ws/devel/setup.bash" C-m
-    tmux send-keys "rosrun navio2_remote remote_multiCtr 50 1600 0.7 0.7 0" C-m
+    tmux send-keys "rosrun navio2_remote remote_multiCtr 50 1600 0.7 0.2 0.2" C-m
 
 elif [ "$#" -eq 1 ] && [ "$1" == 'gps' ]
 then
@@ -83,7 +83,7 @@ then
         tmux send-keys "rosbag record -a" C-m
 else
     echo "Usage :   ./rosCustom.bash [freq] [MaxThrottlePwm] [Kp] [Ki] [Kd] [-log], -log is not necessary" #MaxThrottlePwm is limited to 2000 in the cpp
-    echo "Or :      ./rosCustom.bash auto : for automatic mode i.e. freq= 50, MaxThrottlePwm=1600, Kp=0.7, Ki=0.7, Kd=0"
+    echo "Or :      ./rosCustom.bash auto : for automatic mode i.e. freq= 50, MaxThrottlePwm=1600, Kp=0.7, Ki=0.2, Kd=0.2"
     exit 0
 fi
 
