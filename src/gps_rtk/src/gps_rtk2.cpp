@@ -57,8 +57,7 @@ int main(int argc, char *argv[])
 	while(fgets(path, sizeof(path)-1,fp) != NULL && ros::ok()) // fgets takes a certain line in fp and puts it in path
 	{
 		char *str = strdup(path); //duplicate the string of path in str
-		string test(&str);
-		ROS_INFO(test);
+		ROS_INFO("%c",&str);
 		char *token;
 		int i = 0;
 		while((token = strsep(&str, "   "))) //puts it into a word
