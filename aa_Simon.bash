@@ -31,6 +31,9 @@ then
     tmux new-window -t $SESSION:1 -n 'ROS'
     tmux split-window -h
     tmux select-pane -t 0
+    tmux send-keys "source /home/pi/catkin_ws/devel/setup.bash" C-m
+    tmux send-keys "roscore" C-m
+    tmux select-pane -t 1
     tmux send-keys "sudo ifconfig usb0 192.168.2.2" C-m
     tmux send-keys "sleep 5" C-m
     tmux send-keys "sudo -i" C-m
