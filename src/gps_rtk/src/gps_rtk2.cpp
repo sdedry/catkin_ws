@@ -59,9 +59,9 @@ int main(int argc, char *argv[])
 			}
 			if(i=3){
 				printf("lon = %s\n,token");
-			}
+			}*/
 			token = strtok(NULL, delim);
-			i++;*/
+			i++;
 		}
 		
 		//printf("%s \n",buff);
