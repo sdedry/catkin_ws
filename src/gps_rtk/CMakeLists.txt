@@ -151,7 +151,7 @@ target_link_libraries(
 gps_rtk ${catkin_LIBRARIES}
 )
 
-add_executable(gps_rtk src/gps_rtk2.cpp)
+add_executable(gps_rtk2 src/gps_rtk2.cpp)
 target_link_libraries(
 gps_rtk2 ${catkin_LIBRARIES}
 )
