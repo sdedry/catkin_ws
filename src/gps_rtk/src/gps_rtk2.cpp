@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		int i=0;
 		while( token != NULL ) {
 			printf( "i: %s\n", token);
-			token = strtok(NULL, s);
+			token = strtok(NULL, delim);
 			i++
 		}
 		
