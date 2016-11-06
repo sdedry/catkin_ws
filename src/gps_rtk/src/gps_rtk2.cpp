@@ -47,20 +47,19 @@ int main(int argc, char *argv[])
 	char path[1035]; //creates an array that can store un to 1035 characters
 
 	fp = popen("nc 192.168.2.15 9001", "r"); //reads a file given by nc 192.168.2.15 and creates fp
-	if (fp == NULL)
-		
-	{
+	if (fp == NULL){
 		printf("Failed to run command\n"); // fp is empty
 		exit(1);
 	}
 
 	while(fgets(path, sizeof(path)-1,fp) != NULL && ros::ok()) // fgets takes a certain line in fp and puts it in path
 	{
-		char *str = strdup(path); //duplicate the string of path in str
-		ROS_INFO("voici de quoi est compose la chaine :%c",&str);
-		char *token;
-		int i = 0;
-		while((token = strsep(&str, "   "))) //puts it into a word
+		printf("path: %c",path);
+		//char *str = strdup(path); //duplicate the string of path in str
+		//ROS_INFO("voici de quoi est compose la chaine :%c",&str);
+		//char *token;
+		//int i = 0;
+		/* while((token = strsep(&str, "   "))) //puts it into a word
 		{
 		  if(i == 4)
 		  {
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
 		}
 		free(token);
 		free(str);
-		loop_rate.sleep();
+		loop_rate.sleep();*/
 	}
 
 	pclose(fp);
