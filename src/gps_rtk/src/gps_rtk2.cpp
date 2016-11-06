@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	ros::Publisher gps_rtk = n.advertise<sensor_msgs::NavSatFix>("gps_readings", 1000);
 	ros::Rate loop_rate(10);
 	
-	double pos_data[3];
+	//double pos_data[3];
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
 	while(ros::ok()){
