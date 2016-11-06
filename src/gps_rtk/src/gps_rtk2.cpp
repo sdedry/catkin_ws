@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	while(fgets(path, sizeof(path)-1,fp) != NULL && ros::ok()) // fgets takes a certain line in fp and puts it in path
 	{
 		char *str = strdup(path); //duplicate the string of path in str
-		ROS_INFO("%c",&str);
+		ROS_INFO("voici de quoi est compose la chaine :%c",&str);
 		char *token;
 		int i = 0;
 		while((token = strsep(&str, "   "))) //puts it into a word
@@ -81,8 +81,8 @@ int main(int argc, char *argv[])
 			//printf("Altitude = %s\n", token);
 		  }
 		  
-		  update_gps_msg(&gps_msg, pos_data);
-		  gps_rtk.publish(gps_msg);
+		  //update_gps_msg(&gps_msg, pos_data);
+		  //gps_rtk.publish(gps_msg);
 		  i++;
 		//ROS_INFO("Allez");
 		}
