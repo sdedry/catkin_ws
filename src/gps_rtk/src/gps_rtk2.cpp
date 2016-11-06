@@ -46,9 +46,19 @@ int main(int argc, char *argv[])
 		//printf("ça run a une freq de 10 /n");
 		FILE *fp;
 		char buff[1035];
+		char delim[2]="  ";
+		char* token;
 		fp = popen("nc 192.168.2.15 9001", "r");
 		fgets(buff, sizeof(buff)-1,fp);
-		printf("%s \n",buff);
+		token = strtok(buff, delim);
+		int i=0;
+		while( token != NULL ) {
+			printf( "i: %s\n", token);
+			token = strtok(NULL, s);
+			i++
+		}
+		
+		//printf("%s \n",buff);
 		/*while(fgets(buff, sizeof(buff)-1,fp) != NULL){
 			printf("%s \n",buff);
 		}*/
