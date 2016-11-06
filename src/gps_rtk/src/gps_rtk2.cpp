@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 		char buff[1035];
 		fp = popen("nc 192.168.2.15 9001", "r");
 		while(fgets(buff, sizeof(buff)-1,fp) != NULL){
-			printf("%s \n",buff)
+			printf("%s \n",buff);
 		}
 	}
 	/*FILE *fp;
