@@ -47,9 +47,11 @@ int main(int argc, char *argv[])
 		FILE *fp;
 		char buff[1035];
 		fp = popen("nc 192.168.2.15 9001", "r");
-		while(fgets(buff, sizeof(buff)-1,fp) != NULL){
+		fgets(buff, sizeof(buff)-1,fp);
+		printf("%s \n",buff);
+		/*while(fgets(buff, sizeof(buff)-1,fp) != NULL){
 			printf("%s \n",buff);
-		}
+		}*/
 	}
 	/*FILE *fp;
 	char path[1035]; //creates an array that can store un to 1035 characters
