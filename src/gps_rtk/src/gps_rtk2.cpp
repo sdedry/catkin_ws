@@ -90,8 +90,8 @@ int main(int argc, char *argv[])
 		free(token);
 		free(str);
 		loop_rate.sleep();
-	}*/
+	}
 
-	pclose(fp);
+	pclose(fp);*/
 	return 0;
 }
