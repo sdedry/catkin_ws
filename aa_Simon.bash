@@ -22,6 +22,20 @@ then
     tmux send-keys "sudo -i" C-m
     tmux send-keys "source /home/pi/catkin_ws/devel/setup.bash" C-m
     tmux send-keys "rosrun navio2_remote remote_multiCtr 50 1600 0.7 0.7 0" C-m
+
+elif [ "$#" -eq 1 ] && [ "$1" == 'gps' ]
+then
+    echo "Here we go in gps observation"
+    sleep 2
+    tmux -2 new-session -d -s $SESSION
+    tmux new-window -t $SESSION:1 -n 'ROS'
+    tmux split-window -h
+    tmux select-pane -t 0
+    tmux send-keys "sudo ifconfig usb0 192.168.2.2" C-m
+    tmux send-keys "sleep 5" C-m
+    tmux send-keys "sudo -i" C-m
+    tmux send-keys "source /home/pi/catkin_ws/devel/setup.bash" C-m
+    tmux send-keys "rosrun gps_rtk gps_rtk" C-m
 elif [ "$#" -eq 5 ]
 then
     echo "Here we go WITHOUT log files"
