@@ -137,6 +137,7 @@ include
 
 ## Declare a C++ executable
 add_executable(gps_rtk src/gps_rtk.cpp)
+add_executable(gps_rtk src/gps_rtk2.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
