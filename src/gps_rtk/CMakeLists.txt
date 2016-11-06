@@ -137,10 +137,6 @@ include
 
 ## Declare a C++ executable
 add_executable(gps_rtk src/gps_rtk.cpp)
-target_link_libraries(
-gps_rtk ${catkin_LIBRARIES}
-)
-add_executable(gps_rtk src/gps_rtk2.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -151,9 +147,8 @@ add_executable(gps_rtk src/gps_rtk2.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-
 target_link_libraries(
-gps_rtk2 ${catkin_LIBRARIES}
+gps_rtk ${catkin_LIBRARIES}
 )
 
 #target_link_libraries(
