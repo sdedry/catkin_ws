@@ -6,6 +6,7 @@
 #include  <ros/ros.h>
 #include  <sensor_msgs/NavSatFix.h>
 #include  <string>
+#include <math.h>
 
 void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 {
@@ -40,6 +41,11 @@ int main(int argc, char *argv[])
 	ros::Rate loop_rate(10);
 	
 	float pos_data[2];
+	float rel_pos[2];
+	float ref_pos[2]; 
+	ref_pos[0] = 46.5200996;
+	ref_pos[1] = 6.5666966;
+	
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
 	while(ros::ok()){
@@ -71,7 +77,10 @@ int main(int argc, char *argv[])
 			token = strtok(NULL, delim);
 			i++;
 		}
+		rel_pos[0] = (ref_pos[0]-pos_data[0]);
+		rel_pos[1] = (ref_pos[0]-pos_data[0]);
 		printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
+		
 		//gps_rtk.publish()
 		
 		
