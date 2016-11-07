@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
 			token = strtok(NULL, delim);
 			i++;
 		}
-		string 
 		printf("lat : %f - lon : %f \n",pos_data[0],pos_data[1]);
 		//gps_rtk.publish()
 		
