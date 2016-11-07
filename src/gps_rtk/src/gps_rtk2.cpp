@@ -55,11 +55,11 @@ int main(int argc, char *argv[])
 		int i=0;
 		while( token != NULL) {
 			//printf("%i : %s\n",i,token);
-			if(i=2){
+			if(i == 2){
 				printf("lat = %s\n",token);
 				//pos_data[0] = strtof(token,NULL);
 			}
-			if(i=3){
+			if(i == 3){
 				printf("lon = %s\n",token);
 				//pos_data[1] = strtof(token,NULL);
 			}
