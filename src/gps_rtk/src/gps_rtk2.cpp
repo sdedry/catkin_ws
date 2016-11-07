@@ -49,6 +49,11 @@ int main(int argc, char *argv[])
 		const char delim[3] = "  ";
 		char* token;
 		fp = popen("nc 192.168.2.15 9001", "r");
+		
+		if (fp == NULL){
+			printf("Failed to run command\n"); // fp is empty
+		exit(1);}
+		
 		fgets(buff, sizeof(buff)-1,fp);
 		//printf("%s \n",buff);
 		token = strtok(buff, delim);
@@ -56,16 +61,18 @@ int main(int argc, char *argv[])
 		while( token != NULL) {
 			//printf("%i : %s\n",i,token);
 			if(i == 2){
-				printf("lat = %s\n",token);
-				//pos_data[0] = strtof(token,NULL);
+				//printf("lat = %s\n",token);
+				pos_data[0] = strtof(token,NULL);
 			}
 			if(i == 3){
-				printf("lon = %s\n",token);
-				//pos_data[1] = strtof(token,NULL);
+				//printf("lon = %s\n",token);
+				pos_data[1] = strtof(token,NULL);
 			}
 			token = strtok(NULL, delim);
 			i++;
 		}
+		printf("lat : %f - lon : %f \n",pos_data[0],pos_data[1]);
+		printf("rosOK \n");
 		
 		//printf("%s \n",buff);
 		/*while(fgets(buff, sizeof(buff)-1,fp) != NULL){
