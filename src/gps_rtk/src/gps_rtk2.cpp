@@ -57,11 +57,11 @@ int main(int argc, char *argv[])
 			//printf("%i : %s\n",i,token);
 			if(i=2){
 				printf("lat = %s\n,token");
-				posdata[0] = stof(token);
+				pos_data[0] = strtof(token);
 			}
 			if(i=3){
 				printf("lon = %s\n,token");
-				posdata[1] = stof(token);
+				pos_data[1] = strtof(token);
 			}
 			token = strtok(NULL, delim);
 			i++;
