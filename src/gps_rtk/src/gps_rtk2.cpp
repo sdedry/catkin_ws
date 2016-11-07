@@ -55,23 +55,23 @@ int main(int argc, char *argv[])
 		exit(1);}
 		
 		fgets(buff, sizeof(buff)-1,fp);
-		printf("%s \n",buff);
+		//printf("%s \n",buff);
 		token = strtok(buff, delim);
 		int i=0;
 		while( token != NULL) {
 			//printf("%i : %s\n",i,token);
 			if(i == 2){
-				printf("lat = %s\n",token);
+				//printf("lat = %s\n",token);
 				pos_data[0] = strtof(token,NULL);
 			}
 			if(i == 3){
-				printf("lon = %s\n",token);
+				//printf("lon = %s\n",token);
 				pos_data[1] = strtof(token,NULL);
 			}
 			token = strtok(NULL, delim);
 			i++;
 		}
-		//printf("lat : %f - lon : %f \n",pos_data[0],pos_data[1]);
+		printf("lat : %f - lon : %f \n",pos_data[0],pos_data[1]);
 		printf("rosOK \n");
 		
 		//printf("%s \n",buff);
