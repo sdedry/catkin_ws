@@ -50,11 +50,11 @@ int main(int argc, char *argv[])
 		char* token;
 		fp = popen("nc 192.168.2.15 9001", "r");
 		fgets(buff, sizeof(buff)-1,fp);
-		printf("%s \n",buff);
+		//printf("%s \n",buff);
 		token = strtok(buff, delim);
 		int i=0;
 		while( token != NULL) {
-			printf( " %s\n",token);
+			printf("%i : %s\n",i,token);
 			/*if(i=2){
 				printf("lat = %s\n,token");
 			}
