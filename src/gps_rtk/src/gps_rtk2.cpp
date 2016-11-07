@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
 			i++;
 		}
 		rel_pos[0] = (ref_pos[0]-pos_data[0])*pow(10,6)*1111.6/10000;
-		rel_pos[1] = (ref_pos[0]-pos_data[0])*pow(10,6)*767.4/10000;
-		printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
+		rel_pos[1] = (ref_pos[1]-pos_data[1])*pow(10,6)*767.4/10000;
+		//printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
 		printf("x = %.3f [m]\n y = %.3f [m]\n",rel_pos[1],rel_pos[0]);
 		
 		//gps_rtk.publish()
