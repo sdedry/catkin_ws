@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 		exit(1);}
 		
 		fgets(buff, sizeof(buff)-1,fp);
-		//printf("%s \n",buff);
+		printf("%s \n",buff);
 		token = strtok(buff, delim);
 		int i=0;
 		while( token != NULL) {
