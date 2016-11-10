@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
 	float pos_data[2];
 	float rel_pos[2];
 	float ref_pos[2]; 
-	ref_pos[0] = 46.5200996;
-	ref_pos[1] = 6.5666966;
+	ref_pos[0] = 46.520092;
+	ref_pos[1] = 6.566391;
 	
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
