@@ -13,7 +13,7 @@ void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 	gps_msg->header.stamp = ros::Time::now();
 	gps_msg->latitude = 0.0f;
 	gps_msg->longitude = 0.0f;
-	gps_msg->altitude = 0.0f;
+	//gps_msg->altitude = 0.0f;
 
 	for(int i=0; i<9; i++)
 	{
@@ -23,14 +23,14 @@ void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 	gps_msg->position_covariance_type = 0;
 }
 
-void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, double pos_data[3])
+void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, double pos_data[2])
 {
 	gps_msg->header.stamp = ros::Time::now();
 	gps_msg->latitude = pos_data[0];
 	gps_msg->longitude = pos_data[1];
-	gps_msg->altitude = pos_data[2];
+	//gps_msg->altitude = pos_data[2];
 
-	ROS_INFO("GPS : Lat : = %.8f, Long = %.8f, Alt = %.3f", pos_data[0], pos_data[1], pos_data[2]);
+	ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
 }
 
 int main(int argc, char *argv[])
