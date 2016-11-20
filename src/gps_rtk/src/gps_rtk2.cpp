@@ -23,7 +23,7 @@ void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 	gps_msg->position_covariance_type = 0;
 }
 
-void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, double pos_data[2])
+void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, float pos_data[2])
 {
 	gps_msg->header.stamp = ros::Time::now();
 	gps_msg->latitude = pos_data[0];
