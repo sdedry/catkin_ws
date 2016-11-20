@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
 	ros::NodeHandle n;
 	ros::Publisher gps_rtk = n.advertise<sensor_msgs::NavSatFix>("gps_readings", 1000);
 	ros::Rate loop_rate(10);
+	sensor_msgs::NavSatFix gps_msg;
+	init_gps_msg(&gps_msg);
 	
 	float pos_data[2];
 	float rel_pos[2];
@@ -75,6 +77,9 @@ int main(int argc, char *argv[])
 				pos_data[1] = strtof(token,NULL);
 			}
 			token = strtok(NULL, delim);
+			
+			update_gps_msg(&gps_msg, pos_data);
+		  	gps_rtk.publish(gps_msg);
 			i++;
 		}
 		//rel_pos[0] = (ref_pos[0]-pos_data[0])*pow(10,6)*1111.6/10000;
