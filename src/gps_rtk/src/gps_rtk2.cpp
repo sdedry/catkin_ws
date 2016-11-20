@@ -77,30 +77,18 @@ int main(int argc, char *argv[])
 				pos_data[1] = strtof(token,NULL);
 			}
 			token = strtok(NULL, delim);
-			
-			update_gps_msg(&gps_msg, pos_data);
-		  	gps_rtk.publish(gps_msg);
 			i++;
 		}
+		update_gps_msg(&gps_msg, pos_data);
+		gps_rtk.publish(gps_msg);
+		free(token)
+		loop_rate.sleep();
 		//rel_pos[0] = (ref_pos[0]-pos_data[0])*pow(10,6)*1111.6/10000;
 		//rel_pos[1] = (ref_pos[1]-pos_data[1])*pow(10,6)*767.4/10000;
 		//printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
-		//printf("x = %.3f [m]\n y = %.3f [m]\n",rel_pos[1],rel_pos[0]);
-		
-		//gps_rtk.publish()
-		
-		
-		
-		
-		
-		
-		//printf("rosOK \n");
-		
-		//printf("%s \n",buff);
-		/*while(fgets(buff, sizeof(buff)-1,fp) != NULL){
-			printf("%s \n",buff);
-		}*/
+
 	}
+	pclose(fp);
 	/*FILE *fp;
 	char path[1035]; //creates an array that can store un to 1035 characters
 
