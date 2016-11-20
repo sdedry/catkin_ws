@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 		//printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
 
 	}
-	pclose(fp);
+	//pclose(fp);
 	/*FILE *fp;
 	char path[1035]; //creates an array that can store un to 1035 characters
 
