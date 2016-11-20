@@ -4,7 +4,7 @@ SESSION=$USER
 #no log
 if [ "$#" -eq 1 ] && [ "$1" == 'auto' ]
 then
-    echo "Here we go in AUTO MODE, freq= 50, MaxThrottlePwm=1600, Kp=0.7, Ki=0.7, Kd=0"
+    echo "Here we go in AUTO MODE, freq= 50, MaxThrottlePwm=1600, Kp=0.7, Ki=0.2, Kd=0.2"
     sleep 2
     tmux -2 new-session -d -s $SESSION
     tmux new-window -t $SESSION:1 -n 'ROS'
