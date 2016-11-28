@@ -59,10 +59,9 @@ int main(int argc, char *argv[])
 	char buff[135];
 	const char delim[3] = "  ";
 	char* token;
-	
+	fp = popen("nc 192.168.2.15 9001", "r");
 	while(ros::ok()){
 		//printf("ça run a une freq de 10 /n");
-		fp = popen("nc 192.168.2.15 9001", "r");
 		if (fp == NULL){
 			printf("Failed to run command\n"); // fp is empty
 		exit(1);}		
