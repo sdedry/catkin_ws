@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	int i = 0;
 	while(ros::ok()){
 		//printf("ça run a une freq de 10 /n");
-		FILE *fp;
+		/*FILE *fp;
 		char buff[1035];
 		const char delim[3] = "  ";
 		char* token;
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 		if (fp == NULL){
 			printf("Failed to run command\n"); // fp is empty
 		exit(1);}		
-		fgets(buff, sizeof(buff)-1,fp);
+		fgets(buff, sizeof(buff)-1,fp);*/
 		//printf("%s \n",buff);
 
 		
