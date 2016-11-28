@@ -64,9 +64,27 @@ int main(int argc, char *argv[])
 		//printf("ça run a une freq de 10 /n");
 		if (fp == NULL){
 			printf("Failed to run command\n"); // fp is empty
-		exit(1);}		
+		exit(1);}	
+		
 		fgets(buff, sizeof(buff)-1,fp);
-		printf("%s \n",buff);
+		//printf("%s \n",buff);
+		token = strtok(buff, delim);
+		int i=0;
+		while( token != NULL) {
+			//printf("%i : %s\n",i,token);
+			if(i == 2){
+				printf("lat = %s\n",token);
+				//pos_data[0] = strtof(token,NULL);
+				
+			}
+			if(i == 3){
+				printf("lon = %s\n",token);
+				//pos_data[1] = strtof(token,NULL);
+			}
+			token = strtok(NULL, delim);
+			i++;
+		}
+		free(token);
 		pos_data[0]=0.23*i;
 		pos_data[1]=0.33*i;
 		pos_data[2]=0.43*i;
