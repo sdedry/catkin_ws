@@ -30,7 +30,7 @@ void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, float pos_data[3])
 	gps_msg->longitude = pos_data[1];
 	gps_msg->altitude = pos_data[2];
 
-	ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
+	//ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
 }
 
 int main(int argc, char *argv[])
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	int i = 0;
 	while(ros::ok()){
 		//printf("ça run a une freq de 10 /n");
-		/*FILE *fp;
+		FILE *fp;
 		char buff[1035];
 		const char delim[3] = "  ";
 		char* token;
@@ -65,8 +65,8 @@ int main(int argc, char *argv[])
 		if (fp == NULL){
 			printf("Failed to run command\n"); // fp is empty
 		exit(1);}		
-		fgets(buff, sizeof(buff)-1,fp);*/
-		//printf("%s \n",buff);
+		fgets(buff, sizeof(buff)-1,fp);
+		printf("%s \n",buff);
 
 		
 		pos_data[0]=0.23*i;
