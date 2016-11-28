@@ -13,7 +13,7 @@ void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 	gps_msg->header.stamp = ros::Time::now();
 	gps_msg->latitude = 0.0f;
 	gps_msg->longitude = 0.0f;
-	//gps_msg->altitude = 0.0f;
+	gps_msg->altitude = 0.0f;
 
 	for(int i=0; i<9; i++)
 	{
@@ -23,67 +23,50 @@ void init_gps_msg(sensor_msgs::NavSatFix* gps_msg)
 	gps_msg->position_covariance_type = 0;
 }
 
-void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, float pos_data[2])
+void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, float pos_data[3])
 {
 	gps_msg->header.stamp = ros::Time::now();
 	gps_msg->latitude = pos_data[0];
 	gps_msg->longitude = pos_data[1];
-	//gps_msg->altitude = pos_data[2];
+	gps_msg->altitude = pos_data[2];
 
 	ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
 }
 
 int main(int argc, char *argv[])
 {
+	//Initialize the node
 	ros::init(argc, argv, "gps_handler");
 	ros::NodeHandle n;
+	
+	//Initialize the publisher
 	ros::Publisher gps_rtk = n.advertise<sensor_msgs::NavSatFix>("gps_readings", 1000);
+	
+	//initialize the rate : 10
 	ros::Rate loop_rate(10);
+	
+	//creates a msg of type NavSatFix
 	sensor_msgs::NavSatFix gps_msg;
 	init_gps_msg(&gps_msg);
 	
-	float pos_data[2];
-	float rel_pos[2];
-	float ref_pos[2]; 
-	ref_pos[0] = 46.520092;
-	ref_pos[1] = 6.566391;
+	
+	float pos_data[3];
 	
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
+	int i = 0;
 	while(ros::ok()){
 		//printf("ça run a une freq de 10 /n");
-		FILE *fp;
-		char buff[1035];
-		const char delim[3] = "  ";
-		char* token;
-		fp = popen("nc 192.168.2.15 9001", "r");
+		pos_data[0]=0.23*i;
+		pos_data[1]=0.33*i;
+		pos_data[2]=0.43*i;
 		
-		if (fp == NULL){
-			printf("Failed to run command\n"); // fp is empty
-		exit(1);}
-		
-		fgets(buff, sizeof(buff)-1,fp);
-		//printf("%s \n",buff);
-		token = strtok(buff, delim);
-		int i=0;
-		while( token != NULL) {
-			//printf("%i : %s\n",i,token);
-			if(i == 2){
-				printf("lat = %s\n",token);
-				pos_data[0] = strtof(token,NULL);
-			}
-			if(i == 3){
-				printf("lon = %s\n",token);
-				pos_data[1] = strtof(token,NULL);
-			}
-			token = strtok(NULL, delim);
-			i++;
-		}
 		update_gps_msg(&gps_msg, pos_data);
 		gps_rtk.publish(gps_msg);
-		free(token);
 		loop_rate.sleep();
-		printf("ROS OK \n");
+		ros::spinOnce();
+		i++;
+		//printf("ROS OK \n");
 		//rel_pos[0] = (ref_pos[0]-pos_data[0])*pow(10,6)*1111.6/10000;
 		//rel_pos[1] = (ref_pos[1]-pos_data[1])*pow(10,6)*767.4/10000;
 		//printf("lat : %.7f - lon : %.7f \n",pos_data[0],pos_data[1]);
