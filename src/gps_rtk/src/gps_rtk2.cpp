@@ -30,7 +30,7 @@ void update_gps_msg(sensor_msgs::NavSatFix* gps_msg, float pos_data[3])
 	gps_msg->longitude = pos_data[1];
 	gps_msg->altitude = pos_data[2];
 
-	//ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
+	ROS_INFO("GPS : Lat : = %.8f, Long = %.8f", pos_data[0], pos_data[1]);
 }
 
 int main(int argc, char *argv[])
@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
 	
 	//sensor_msgs::NavSatFix gps_msg;
 	//init_gps_msg(&gps_msg);
-	int i = 0;
 	FILE *fp;
 	char buff[135];
 	const char delim[3] = "  ";
@@ -73,23 +72,23 @@ int main(int argc, char *argv[])
 		while( token != NULL) {
 			//printf("%i : %s\n",i,token);
 			if(i == 2){
-				printf("lat = %s\n",token);
+				//printf("lat = %s\n",token);
 				pos_data[0] = strtof(token,NULL);
-				printf("lat = %.8f\n",pos_data[0]);
+				//printf("lat = %.8f\n",pos_data[0]);
 				
 			}
 			if(i == 3){
-				printf("lon = %s\n",token);
+				//printf("lon = %s\n",token);
 				pos_data[1] = strtof(token,NULL);
-				printf("lon = %.8f\n",pos_data[1]);
+				//printf("lon = %.8f\n",pos_data[1]);
 			}
 			token = strtok(NULL, delim);
 			i++;
 		}
 		free(token);
-		pos_data[0]=0.23*i;
+		/*pos_data[0]=0.23*i;
 		pos_data[1]=0.33*i;
-		pos_data[2]=0.43*i;
+		pos_data[2]=0.43*i;*/
 		
 		update_gps_msg(&gps_msg, pos_data);
 		gps_rtk.publish(gps_msg);
