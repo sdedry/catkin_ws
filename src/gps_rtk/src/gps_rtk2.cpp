@@ -74,12 +74,14 @@ int main(int argc, char *argv[])
 			//printf("%i : %s\n",i,token);
 			if(i == 2){
 				printf("lat = %s\n",token);
-				//pos_data[0] = strtof(token,NULL);
+				pos_data[0] = strtof(token,NULL);
+				printf("lat = %f\n",pos_data[0]);
 				
 			}
 			if(i == 3){
 				printf("lon = %s\n",token);
-				//pos_data[1] = strtof(token,NULL);
+				pos_data[1] = strtof(token,NULL);
+				printf("lon = %f\n",pos_data[1]);
 			}
 			token = strtok(NULL, delim);
 			i++;
