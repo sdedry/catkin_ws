@@ -153,7 +153,6 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 	double dTnsec = (timeNow - previousTimeSpeed.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
-	printf("dt measured here %f\n", dT);
 
 	if(dT > 0)
 		derr_m = (err_m - previousErr)/dT;
@@ -204,6 +203,7 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	long oldgpstime = previousTimeGPS.nsec;
 
 	dtGPS = (newgpstime - oldgpstime)/(1e9f);
+	if(dtGPS < 0) dtGPS += 1e9;
 
 	ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
 }
