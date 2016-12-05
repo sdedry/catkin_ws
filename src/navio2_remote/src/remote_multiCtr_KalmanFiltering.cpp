@@ -179,7 +179,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	currentTime = imu_msg.header.stamp;
 
 	//current roll angle
-	current = imu_msg.orientation.x;
+	currentRoll = imu_msg.orientation.x;
 	ROS_INFO("Time %d", the_time);
 
 	//keep calibration after 15 seconds
