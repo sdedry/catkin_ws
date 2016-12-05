@@ -181,7 +181,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	currentTime = imu_msg.header.stamp;
 
 	//current yaw angle (for GPS kalman filtering)
-	currentYaw = imu_msg.orientation.z;
+	currentYaw = (imu_msg.orientation.z)*3.141592/180.0+0.6;
 	//current roll angle
 	currentRoll = imu_msg.orientation.x;
 	ROS_INFO("Time %d", the_time);
@@ -190,7 +190,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	if(the_time < 15) RollOffset = currentRoll;
 
 	currentRoll -= RollOffset;
-	ROS_INFO("New Roll %f", currentYaw);
+	ROS_INFO("New Roll %f", currentRoll);
 }
 
 void read_GPS(sensor_msgs::NavSatFix gps_msg)
