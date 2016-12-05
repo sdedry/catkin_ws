@@ -403,7 +403,7 @@ int main(int argc, char **argv)
 		ctrl_msg.header.stamp = ros::Time::now();
 		ctrl_msg.temperature = currentSpeed;
 		ctrl_msg.variance = currentRoll;
-		//printf()
+		printf("current roll %f \n",currentRoll);
 
 		//publish messages
 		remote_pub.publish(rem_msg);
