@@ -416,6 +416,7 @@ int main(int argc, char **argv)
 		int desired_pwm = 0;
 		if(rcin.read(3) > 1500) desired_pwm = ((float)rcin.read(3)-1500.0f)*((float)saturation - 1500.0f)/500.0f + 1500.0f;		
 		else desired_pwm = rcin.read(3);
+
 //if(rcin.read(3) >= saturation)
 		//	desired_pwm = saturation;
 		//else
@@ -427,6 +428,7 @@ int main(int argc, char **argv)
 
 		//Read current Speed in m/s
 		dtf = rcin.read(5)-1000;
+		printf("rcin read %i \n", dtf);
 		speed = 4.0f*PI*R*1000.0f/((float)dtf);
 		if(speed < 0 || dtf < 40) speed = 0;
 		
@@ -472,7 +474,7 @@ int main(int argc, char **argv)
 			double dT = currentTime.toSec()-previousTime.toSec();
 			mu_kk_1[0][0] = Kalman_evalX(X_Kalman, currentSpeed, currentYaw, (float)dT);
 			mu_kk_1[1][0] = Kalman_evalY(Y_Kalman, currentSpeed, currentYaw, (float)dT);
-			printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
+			//printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
 
 
 
