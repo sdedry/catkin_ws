@@ -211,8 +211,8 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	currentTimeGPS = gps_msg.header.stamp.toSec();
 
 	//current lat lon and dt
-	GPSLat = gps_msg.latitude;
-	GPSLon = gps_msg.longitude;
+	GPS_lat = gps_msg.latitude;
+	GPS_lon = gps_msg.longitude;
 	dtGPS = (currentTimeGPS - previousTimeGPS);
 
 	//ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
