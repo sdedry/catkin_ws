@@ -201,7 +201,7 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	GPSLon = gps_msg.longitude;
 	dTnsec = (currentTimeGPS.nsec-previousTimeGPS.nsec)/(1e9f);
 
-	ROS_INFO("Time: %d - Lat: %f - Lon: %f", dTnsec, GPSLat, GPSLon);
+	ROS_INFO("Time: %f - Lat: %f - Lon: %f", dTnsec, GPSLat, GPSLon);
 }
 
 int main(int argc, char **argv)
