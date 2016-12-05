@@ -45,8 +45,10 @@ ros::Time previousTimeSpeed;
 //Values recieved from GPS
 float GPSLat;
 float GPSLon;
-ros::Time currentTimeGPS;
-ros::Time previousTimeGPS;
+double currentTimeGPS;
+double previousTimeGPS;
+//ros::Time currentTimeGPS;
+//ros::Time previousTimeGPS;
 double dtGPS; 
 
 //Roll Errors 1
