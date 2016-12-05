@@ -363,7 +363,6 @@ int main(int argc, char **argv)
 
 		//Read current Speed in m/s
 		dtf = rcin.read(5)-1000;
-		printf("rcin read %i \n", dtf);
 		speed = 4.0f*PI*R*1000.0f/((float)dtf);
 		if(speed < 0 || dtf < 40) speed = 0;
 		
