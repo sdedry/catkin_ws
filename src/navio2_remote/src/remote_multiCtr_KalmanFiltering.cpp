@@ -600,7 +600,7 @@ int main(int argc, char **argv)
 		pos_msg.orientation.x = z_gps[0][0];
 		pos_msg.orientation.y = z_gps[1][0];
 		pos_msg.orientation.z = mu_kalman[0][0];
-		pos_msg.orientation.w = mu_kalman[0][0];
+		pos_msg.orientation.w = mu_kalman[1][0];
 
 		//publish messages
 		remote_pub.publish(rem_msg);
