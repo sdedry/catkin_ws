@@ -551,7 +551,7 @@ int main(int argc, char **argv)
 
 			}
 			double dT = currentTime.toSec()-previousTime.toSec();
-			//printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
+			printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
 
 			mu_kk_1[0][0] = Kalman_evalX(mu_kalman[0][0], currentSpeed, currentYaw, (float)dT);
 			mu_kk_1[1][0] = Kalman_evalY(mu_kalman[1][0], currentSpeed, currentYaw, (float)dT);
@@ -571,7 +571,6 @@ int main(int argc, char **argv)
 				substr22(Kalman_eye,Kalman_K,Kalman_eye_min_K);//(eye(2)-K*H)
 				multip22by22(Kalman_eye_min_K,P_kk_1,Kalman_P);//P = (eye(2)-K*H)*P_kk_1;
 				Update_phase = GPS_data_rec;
-				printf("GPS MEASURED %d \n",Update_phase);
 			}
 
 			else{
