@@ -394,6 +394,7 @@ int main(int argc, char **argv)
 	ros::NodeHandle n;
 	ros::Publisher remote_pub = n.advertise<sensor_msgs::Temperature>("remote_readings", 1000);
 	ros::Publisher control_pub = n.advertise<sensor_msgs::Temperature>("control_readings", 1000);
+	ros::Publisher position_pub = n.advertise<sensor_msgs::Imu>("pos_readings", 1000);
 	
 	//subscribe to imu topic
 	ros::Subscriber imu_sub = n.subscribe("imu_readings", 1000, read_Imu);
@@ -455,6 +456,7 @@ int main(int argc, char **argv)
 
 	sensor_msgs::Temperature rem_msg; //use of Temperature type messages. Because 2 floats
 	sensor_msgs::Temperature ctrl_msg;
+	sensor_msgs::Imu pos_msg; //use of imu type message for storing position in XY and kalman filtered
 
 	float desired_roll = 0;
 	float desired_speed = 0;
@@ -535,6 +537,8 @@ int main(int argc, char **argv)
 		/*******************************************/
 		/*        KALMAN FILTERING SECTION         */
 		/*******************************************/
+
+
 		z_gps[0][0] = (GPS_lat - base_lat)*1111.6/10000*1e6;
 		z_gps[1][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
 
@@ -591,9 +595,17 @@ int main(int argc, char **argv)
 		ctrl_msg.temperature = currentSpeed;
 		ctrl_msg.variance = currentRoll;
 
+		//save the position readings and the one kalman filtered
+		pos_msg.header.stamp = ros::Time::now();
+		pos_msg.orientation.x = z_gps[0][0];
+		pos_msg.orientation.y = z_gps[1][0];
+		pos_msg.orientation.z = mu_kalman[0][0];
+		pos_msg.orientation.w = mu_kalman[0][0];
+
 		//publish messages
 		remote_pub.publish(rem_msg);
 		control_pub.publish(ctrl_msg);
+		position_pub.publish(pos_msg);
 
 		/*******************************************/
 		/*            LOOPING SECTION              */
