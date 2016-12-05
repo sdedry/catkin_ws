@@ -194,7 +194,7 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 {
 	//save the time of the aquisition
 	previousTimeGPS = currentTimeGPS;
-	currentTimeGPS = gps_msg.header.stamp;
+	currentTimeGPS = gps_msg.header.stamp.toSec();
 
 	//current lat lon and dt
 	GPSLat = gps_msg.latitude;
