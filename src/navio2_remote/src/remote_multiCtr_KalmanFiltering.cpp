@@ -181,7 +181,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	currentTime = imu_msg.header.stamp;
 
 	//current yaw angle (for GPS kalman filtering)
-	currentYaw = imu.msg.orientation.z+;
+	currentYaw = imu_msg.orientation.z;
 	//current roll angle
 	currentRoll = imu_msg.orientation.x;
 	ROS_INFO("Time %d", the_time);
