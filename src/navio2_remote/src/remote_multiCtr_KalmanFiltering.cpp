@@ -435,6 +435,12 @@ int main(int argc, char **argv)
 		/*******************************************/
 		Y_gps = (GPS_lat - base_lat)*1111.6/10000*1e6;
 		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
+		printf("x = %f \n y = %f",X_gps,Y_gps);
+
+		if (the_time>20){
+
+
+		}
 	
 		/*******************************************/
 		/*            MESSAGING SECTION            */
