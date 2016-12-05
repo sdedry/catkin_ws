@@ -56,7 +56,7 @@ float X_gps;
 float Y_gps;
 
 float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
-float Kalman_Q[2][2] = {{0.5*1/1e5, 0.0},{0.0, 0.5*1/1e5};
+float Kalman_Q[2][2] = {{0.5*1/1e5, 0.0},{0.0, 0.5*1/1e5}};
 float Kalman_R[2][2] = {{0.1, 0.0},{0.0, 0.1}};
 // note that Kalman_H is identity matrix
 // note that the jacobian of the system is the identity matrix
