@@ -110,6 +110,7 @@ float pid_Ref_Output(int desired_roll) //in degrees
 	double dTnsec = (timeNow - previousTime.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
+
 	printf("dtyaw %f\n", dT);
 
 	if(dT > 0)
@@ -135,12 +136,14 @@ int pid_Servo_Output(int desired_roll) //in degrees
 	float previousErr = err1;
 	err1 = desired_roll - currentRoll;
 
-	long timeNow = currentTime.nsec;
+	/*long timeNow = currentTime.nsec;
 
 	//time between now and last roll message we got
 	double dTnsec = (timeNow - previousTime.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
+	*/
+	double dT = currentTime.toSec()-previousTime.toSec;
 
 	if(dT > 0)
 		derr1 = (err1 - previousErr)/dT;
@@ -161,6 +164,7 @@ int pid_Servo_Output(int desired_roll) //in degrees
 	return pwmSignal; 
 }
 
+//never called function
 int pid_Motor_Output(int desired_speed) // desired speed in m/s
 {
 	//calculate errors
@@ -173,7 +177,6 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 	double dTnsec = (timeNow - previousTimeSpeed.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
-	printf("dtspeed = %f\n", dT);
 
 
 	if(dT > 0)
