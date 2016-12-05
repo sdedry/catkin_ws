@@ -134,72 +134,7 @@ target_link_libraries(remote_pub_sub rcinput)
 target_link_libraries(remote_pub_sub pwm)
 target_link_libraries(remote_pub_sub util)
 
-add_executable(remote_pub_sub_sat src/remote_pub_sub_sat.cpp)
-target_link_libraries(remote_pub_sub_sat ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat rcinput)
-target_link_libraries(remote_pub_sub_sat pwm)
-target_link_libraries(remote_pub_sub_sat util)
-
-add_executable(remote_pub_sub_sat_prbs src/remote_pub_sub_sat_prbs.cpp)
-target_link_libraries(remote_pub_sub_sat_prbs ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_prbs rcinput)
-target_link_libraries(remote_pub_sub_sat_prbs pwm)
-target_link_libraries(remote_pub_sub_sat_prbs util)
-
-#same as first one but with speed readings
-add_executable(remote_pub_sub_sat_prbs2 src/remote_pub_sub_sat_prbs2.cpp)
-target_link_libraries(remote_pub_sub_sat_prbs2 ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_prbs2 rcinput)
-target_link_libraries(remote_pub_sub_sat_prbs2 pwm)
-target_link_libraries(remote_pub_sub_sat_prbs2 util)
-
-add_executable(remote_pub_sub_sat_PID src/remote_pub_sub_sat_PID.cpp)
-target_link_libraries(remote_pub_sub_sat_PID ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_PID rcinput)
-target_link_libraries(remote_pub_sub_sat_PID pwm)
-target_link_libraries(remote_pub_sub_sat_PID util)
-
-add_executable(remote_pub_sub_sat_PID2 src/remote_pub_sub_sat_PID2.cpp)
-target_link_libraries(remote_pub_sub_sat_PID2 ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_PID2 rcinput)
-target_link_libraries(remote_pub_sub_sat_PID2 pwm)
-target_link_libraries(remote_pub_sub_sat_PID2 util)
-
-add_executable(remote_pub_sub_sat_PID_trim src/remote_pub_sub_sat_PID_trim.cpp)
-target_link_libraries(remote_pub_sub_sat_PID_trim ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_PID_trim rcinput)
-target_link_libraries(remote_pub_sub_sat_PID_trim pwm)
-target_link_libraries(remote_pub_sub_sat_PID_trim util)
-
-add_executable(remote_pub_sub_sat_PID_trim2 src/remote_pub_sub_sat_PID_trim2.cpp)
-target_link_libraries(remote_pub_sub_sat_PID_trim2 ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_PID_trim2 rcinput)
-target_link_libraries(remote_pub_sub_sat_PID_trim2 pwm)
-target_link_libraries(remote_pub_sub_sat_PID_trim2 util)
-
-add_executable(remote_pub_sub_sat_PID_trim2_prbs src/remote_pub_sub_sat_PID_trim2_prbs.cpp)
-target_link_libraries(remote_pub_sub_sat_PID_trim2_prbs ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_PID_trim2_prbs rcinput)
-target_link_libraries(remote_pub_sub_sat_PID_trim2_prbs pwm)
-target_link_libraries(remote_pub_sub_sat_PID_trim2_prbs util)
-
-add_executable(remote_pub_sub_sat_motor_PID src/remote_pub_sub_sat_motor_PID.cpp)
-target_link_libraries(remote_pub_sub_sat_motor_PID ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_motor_PID rcinput)
-target_link_libraries(remote_pub_sub_sat_motor_PID pwm)
-target_link_libraries(remote_pub_sub_sat_motor_PID util)
-
-add_executable(remote_pub_sub_sat_motor_PID2 src/remote_pub_sub_sat_motor_PID2.cpp)
-target_link_libraries(remote_pub_sub_sat_motor_PID2 ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_motor_PID2 rcinput)
-target_link_libraries(remote_pub_sub_sat_motor_PID2 pwm)
-target_link_libraries(remote_pub_sub_sat_motor_PID2 util)
-
-add_executable(remote_pub_sub_sat_8_shape src/remote_pub_sub_sat_8_shape.cpp)
-target_link_libraries(remote_pub_sub_sat_8_shape ${catkin_LIBRARIES})
-target_link_libraries(remote_pub_sub_sat_8_shape rcinput)
-target_link_libraries(remote_pub_sub_sat_8_shape pwm)
-target_link_libraries(remote_pub_sub_sat_8_shape util)
+#
 
 add_executable(remote_multiCtr src/remote_multiCtr.cpp)
 target_link_libraries(remote_multiCtr ${catkin_LIBRARIES})
