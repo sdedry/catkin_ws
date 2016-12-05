@@ -42,13 +42,24 @@ float currentSpeed;
 ros::Time currentTimeSpeed;
 ros::Time previousTimeSpeed;
 
-//Values recieved from GPS
-float GPSLat;
-float GPSLon;
+//Variables for GPS and Kalman filtering
+
+float GPS_lat;
+float GPS_lon;
 double currentTimeGPS;
 double previousTimeGPS;
 double dtGPS; 
 float currentYaw;
+float base_lat = 46.51849177;
+float base_lon = 6.56666458;
+float X_gps;
+float Y_gps;
+
+float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_Q[2][2] = {{0.5*1/1e5, 0.0},{0.0, 0.5*1/1e5};
+float Kalman_R[2][2] = {{0.1, 0.0},{0.0, 0.1}};
+// note that Kalman_H is identity matrix
+// note that the jacobian of the system is the identity matrix
 
 //Roll Errors 1
 float err1;
@@ -422,10 +433,8 @@ int main(int argc, char **argv)
 		/*******************************************/
 		/*        KALMAN FILTERING SECTION         */
 		/*******************************************/
-
-
-		
-
+		Y_gps = (GPS_lat - base_lat)*1111.6/10000*1e6;
+		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
 	
 		/*******************************************/
 		/*            MESSAGING SECTION            */
