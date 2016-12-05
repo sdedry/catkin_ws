@@ -6,6 +6,7 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Temperature.h"
 #include "sensor_msgs/Imu.h"
+#include "sensor_msgs/NavSatFix.h"
 #include <sstream>
 
 //PWM Pins on Navio2
@@ -40,6 +41,10 @@ ros::Time previousTime;
 float currentSpeed;
 ros::Time currentTimeSpeed;
 ros::Time previousTimeSpeed;
+
+//Values recieved from GPS
+float GPSLat;
+float GPSLon;
 
 //Roll Errors 1
 float err1;
@@ -330,6 +335,7 @@ int main(int argc, char **argv)
 	RollOffset = 0;
 	int initTime = ros::Time::now().sec%1000;
 
+
 	/*******************************************/
 	/*             MAIN ROS LOOP               */
 	/*******************************************/
@@ -389,6 +395,15 @@ int main(int argc, char **argv)
 
 		//Measure time for initial roll calibration
 		the_time = ros::Time::now().sec%1000-initTime;
+
+
+
+		/*******************************************/
+		/*        KALMAN FILTERING SECTION         */
+		/*******************************************/
+
+		
+
 	
 		/*******************************************/
 		/*            MESSAGING SECTION            */
