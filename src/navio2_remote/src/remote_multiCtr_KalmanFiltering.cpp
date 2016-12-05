@@ -45,6 +45,8 @@ ros::Time previousTimeSpeed;
 //Values recieved from GPS
 float GPSLat;
 float GPSLon;
+ros::Time currentTimeGPS;
+ros::Time previousTimeGPS;
 
 //Roll Errors 1
 float err1;
@@ -173,11 +175,11 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 void read_Imu(sensor_msgs::Imu imu_msg)
 {
 	//save the time of the aquisition
-	previousTime = currentTime;
-	currentTime = imu_msg.header.stamp;
+	previousTimeGPS = currentTimeGPS;
+	currentTimeG = imu_msg.header.stamp;
 
 	//current roll angle
-	currentRoll = imu_msg.orientation.x;
+	current = imu_msg.orientation.x;
 	ROS_INFO("Time %d", the_time);
 
 	//keep calibration after 15 seconds
@@ -185,6 +187,17 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 
 	currentRoll -= RollOffset;
 	ROS_INFO("New Roll %f", currentRoll);
+}
+void read_GPS(sensor_msgs::NavSatFix gps_msg)
+{
+	//save the time of the aquisition
+	previousTime = currentTime;
+	currentTime = imu_msg.header.stamp;
+
+	//current roll angle
+	GPSLat = gps_msg.latitude;
+	GPSLon = gps_msg.longitude
+	ROS_INFO("Time: %d - Lat: %f - Lon: %f", the_time, GPSLat, GPSLon);
 }
 
 int main(int argc, char **argv)
@@ -265,6 +278,7 @@ int main(int argc, char **argv)
 	
 	//subscribe to imu topic
 	ros::Subscriber imu_sub = n.subscribe("imu_readings", 1000, read_Imu);
+	ros::Subscriber imu_sub = n.subscribe("gps_readings", 1000, read_GPS);
 
 	//running rate = freq Hz
 	ros::Rate loop_rate(freq);
