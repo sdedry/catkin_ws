@@ -55,8 +55,6 @@ float base_lon = 6.56666458;
 float X_gps = 0.0;
 float Y_gps = 0.0;
 int GPS_data_rec = 0;
-double dtspeed;
-double dtyaw;
 
 //Variables for Kalman
 float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
@@ -112,7 +110,7 @@ float pid_Ref_Output(int desired_roll) //in degrees
 	double dTnsec = (timeNow - previousTime.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
-	dtyaw = dT;
+	printf("dtyaw %f\n", dT);
 
 	if(dT > 0)
 		derr2 = (err2 - previousErr)/dT;
@@ -175,7 +173,8 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 	double dTnsec = (timeNow - previousTimeSpeed.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
-	dtspeed = dT;
+	printf("dtspeed = %f\n", dT);
+
 
 	if(dT > 0)
 		derr_m = (err_m - previousErr)/dT;
@@ -457,7 +456,6 @@ int main(int argc, char **argv)
 		/*******************************************/
 		Y_gps = (GPS_lat - base_lat)*1111.6/10000*1e6;
 		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
-		printf("dtyaw = %f \n dtspeed = %f",dtyaw,dtspeed);
 
 		if (GPS_data_rec >= 1) //Kalman filtering can start
 		{ 
