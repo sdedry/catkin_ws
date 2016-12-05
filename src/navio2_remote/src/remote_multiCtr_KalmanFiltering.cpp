@@ -112,7 +112,7 @@ float pid_Ref_Output(int desired_roll) //in degrees
 	double dT = dTnsec/(1e9f);*/
 
 	double dT = currentTime.toSec()-previousTime.toSec();
-	printf("dtyaw ds Ref %f\n", dT);
+	//printf("dtyaw%f\n", dT);
 
 	if(dT > 0)
 		derr2 = (err2 - previousErr)/dT;
@@ -145,7 +145,7 @@ int pid_Servo_Output(int desired_roll) //in degrees
 	double dT = dTnsec/(1e9f);
 	*/
 	double dT = currentTime.toSec()-previousTime.toSec();
-	printf("dtyaw ds output %f\n", dT);
+	//printf("dtyaw ds output %f\n", dT);
 
 	if(dT > 0)
 		derr1 = (err1 - previousErr)/dT;
@@ -465,13 +465,14 @@ int main(int argc, char **argv)
 		if (GPS_data_rec >= 1) //Kalman filtering can start
 		{ 
 			if (GPS_data_rec == 1) //initialize the first value of GPS to Kalman 
-			{
+			{	
 				X_Kalman = X_gps;
 				Y_Kalman = Y_gps;
 			}
-			/*
-			mu_kk_1[0][0] = Kalman_evalX(x v alpha dt)
-			mu_kk_1[1][0] = */
+			double dT = currentTime.toSec()-previousTime.toSec();
+			mu_kk_1[0][0] = Kalman_evalX(X_Kalman, currentSpeed, currentYaw, (float)dT);
+			mu_kk_1[1][0] = Kalman_evalY(Y_Kalman, currentSpeed, currentYaw, (float)dT);
+			printf("%f  -  %f \n", mu_kk_1[0][0], mu_kk_1[1][0]);
 
 
 
