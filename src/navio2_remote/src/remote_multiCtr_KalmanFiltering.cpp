@@ -52,21 +52,28 @@ double dtGPS;
 float currentYaw;
 float base_lat = 46.51849177;
 float base_lon = 6.56666458;
-float X_gps = 0.0;
-float Y_gps = 0.0;
-int GPS_data_rec = 0;
+int GPS_data_rec = 0; 
+int Update_phase = 0;
 
 //Variables for Kalman
 float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 float Kalman_Q[2][2] = {{0.5*1/1e5, 0.0},{0.0, 0.5*1/1e5}};
 float Kalman_R[2][2] = {{0.1, 0.0},{0.0, 0.1}};
+float Kalman_S[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_S_inv[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_K[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_eye[2][2] = {{1.0, 0.0},{0.0, 1.0}};
+float Kalman_eye_min_K[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_K_ybar[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+
 // note that Kalman_H is identity matrix
 // note that the jacobian of the system is the identity matrix
-float X_Kalman;
-float Y_Kalman;
+
+float mu_kalman[2][1];
 float P_kk_1[2][2];
 float mu_kk_1[2][1];
-
+float ybar[2][1];
+float z_gps[2][1];
 
 //Roll Errors 1
 float err1;
@@ -242,6 +249,58 @@ float Kalman_evalX (float x, float v, float alpha, float dt){
 float Kalman_evalY (float y, float v, float alpha, float dt){
 	float y2 = y + v*cos(alpha)*dt;
 	return y2;
+}
+
+void sum22 (float a[2][2], float b[2][2], float c[2][2])
+{
+	c[0][0] = a[0][0] + b[0][0];
+	c[0][1] = a[0][1] + b[0][1];
+	c[1][0] = a[1][0] + b[1][0];
+	c[1][1] = a[1][1] + b[1][1];
+}
+
+void substr22 (float a[2][2], float b[2][2], float c[2][2])
+{
+	c[0][0] = a[0][0] - b[0][0];
+	c[0][1] = a[0][1] - b[0][1];
+	c[1][0] = a[1][0] - b[1][0];
+	c[1][1] = a[1][1] - b[1][1];
+}
+
+void sum21 (float a[2][1], float b[2][1], float c[2][1])
+{
+	c[0][0] = a[0][0] + b[0][0];
+	c[1][0] = a[1][0] + b[1][0];
+}
+
+void substr21 (float a[2][1], float b[2][1], float c[2][1])
+{
+	c[0][0] = a[0][0] - b[0][0];
+	c[1][0] = a[1][0] - b[1][0];
+}
+
+void invert22 (float a[2][2], float b[2][2])
+{
+	float det = a[0][0]*a[1][1] - a[0][1]*a[1][0];
+	b[0][0] = 1.0/det*a[1][1];
+	b[0][1] = -1.0/det*a[0][1];
+	b[1][0] = -1.0/det*a[1][0];
+	b[1][1] = 1.0/det*a[0][0];
+}
+
+void multip22by22 (float a[2][2], float b[2][2], float c[2][2]) //in degrees
+{
+	c[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0];
+	c[0][1] = a[0][0] * b[0][1] + a[0][1] * b[1][1];
+	c[1][0] = a[1][0] * b[0][0] + a[1][1] * b[1][0];
+	c[1][1] = a[1][0] * b[0][1] + a[1][1] * b[1][1];
+}
+
+void multip22by21 (float a[2][2], float b[2][1], float c[2][1]) //in degrees
+{
+
+	c[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0];
+	c[1][0] = a[1][0]*b[0][0] + a[1][1]*b[1][0];
 }
 
 int main(int argc, char **argv)
@@ -460,23 +519,46 @@ int main(int argc, char **argv)
 		/*******************************************/
 		/*        KALMAN FILTERING SECTION         */
 		/*******************************************/
-		Y_gps = (GPS_lat - base_lat)*1111.6/10000*1e6;
-		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
+		z_gps[0][0] = (GPS_lat - base_lat)*1111.6/10000*1e6;
+		z_gps[1][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
 
 		if (GPS_data_rec >= 1) //Kalman filtering can start
 		{ 
 			if (GPS_data_rec == 1) //initialize the first value of GPS to Kalman 
 			{	
-				X_Kalman = X_gps;
-				Y_Kalman = Y_gps;
+				mu_kalman[0][0] = z_gps[0][0];
+				mu_kalman[1][0] = z_gps[1][0];
+
 			}
 			double dT = currentTime.toSec()-previousTime.toSec();
-			mu_kk_1[0][0] = Kalman_evalX(X_Kalman, currentSpeed, currentYaw, (float)dT);
-			mu_kk_1[1][0] = Kalman_evalY(Y_Kalman, currentSpeed, currentYaw, (float)dT);
-			printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
+			//printf("dt : %f - speed : %f - yaw : %f \n" ,dT,currentSpeed,currentYaw);
 
+			mu_kk_1[0][0] = Kalman_evalX(mu_kalman[0][0], currentSpeed, currentYaw, (float)dT);
+			mu_kk_1[1][0] = Kalman_evalY(mu_kalman[1][0], currentSpeed, currentYaw, (float)dT);
 
+			//P_kk_1 = eval(J)*P*eval(J)' + Q / J is identity matrix
+			sum22(Kalman_P,Kalman_Q,P_kk_1);
+			
 
+			if (GPS_data_rec > Update_phase)
+			{
+				substr21(z_gps,mu_kk_1,ybar); //ybar = z - H*mu_kk_1;
+				sum22(P_kk_1,Kalman_R,Kalman_S); //S = H*P_kk_1*H'+ R;
+				invert22(Kalman_S,Kalman_S_inv); //S^-1
+				multip22by22(P_kk_1,Kalman_S_inv,Kalman_K); //K = P_kk_1*H'*S^(-1)
+				multip22by21(Kalman_K,ybar,Kalman_K_ybar); //K*ybar;
+				sum21(mu_kk_1,Kalman_K_ybar,mu_kalman); //mu_kalman = mu_kk_1 + K*ybar;
+				substr22(Kalman_eye,Kalman_K,Kalman_eye_min_K);//(eye(2)-K*H)
+				multip22by22(Kalman_eye_min_K,P_kk_1,Kalman_P);//P = (eye(2)-K*H)*P_kk_1;
+				Update_phase = GPS_data_rec;
+				printf("GPS MEASURED\n");
+			}
+
+			else{
+				mu_kalman = mu_kk_1;
+				P = P_kk_1;
+			}
+			
 		}
 	
 		/*******************************************/
