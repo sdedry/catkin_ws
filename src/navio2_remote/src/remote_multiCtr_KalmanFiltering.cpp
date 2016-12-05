@@ -567,7 +567,7 @@ int main(int argc, char **argv)
 				substr22(Kalman_eye,Kalman_K,Kalman_eye_min_K);//(eye(2)-K*H)
 				multip22by22(Kalman_eye_min_K,P_kk_1,Kalman_P);//P = (eye(2)-K*H)*P_kk_1;
 				Update_phase = GPS_data_rec;
-				printf("GPS MEASURED\n");
+				printf("GPS MEASURED %d \n",Update_phase);
 			}
 
 			else{
