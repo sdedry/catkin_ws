@@ -175,8 +175,8 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 void read_Imu(sensor_msgs::Imu imu_msg)
 {
 	//save the time of the aquisition
-	previousTimeGPS = currentTimeGPS;
-	currentTimeG = imu_msg.header.stamp;
+	previousTime = currentTime;
+	currentTime = imu_msg.header.stamp;
 
 	//current roll angle
 	current = imu_msg.orientation.x;
@@ -188,11 +188,12 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	currentRoll -= RollOffset;
 	ROS_INFO("New Roll %f", currentRoll);
 }
+
 void read_GPS(sensor_msgs::NavSatFix gps_msg)
 {
 	//save the time of the aquisition
-	previousTime = currentTime;
-	currentTime = imu_msg.header.stamp;
+	previousTimeGPS = currentTimeGPS;
+	currentTimeGPS = imu_msg.header.stamp;
 
 	//current roll angle
 	GPSLat = gps_msg.latitude;
