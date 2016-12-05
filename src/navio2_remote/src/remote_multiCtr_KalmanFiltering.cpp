@@ -175,7 +175,7 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 	double dTnsec = (timeNow - previousTimeSpeed.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
-	dtspeed = dt;
+	dtspeed = dT;
 
 	if(dT > 0)
 		derr_m = (err_m - previousErr)/dT;
@@ -459,7 +459,7 @@ int main(int argc, char **argv)
 		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
 		printf("dtyaw = %f \n dtspeed = %f",dtyaw,dtspeed);
 
-		if (GPS_data_rec => 1) //Kalman filtering can start
+		if (GPS_data_rec >= 1) //Kalman filtering can start
 		{ 
 			if (GPS_data_rec == 1) //initialize the first value of GPS to Kalman 
 			{
