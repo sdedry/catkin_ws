@@ -472,7 +472,7 @@ int main(int argc, char **argv)
 			double dT = currentTime.toSec()-previousTime.toSec();
 			mu_kk_1[0][0] = Kalman_evalX(X_Kalman, currentSpeed, currentYaw, (float)dT);
 			mu_kk_1[1][0] = Kalman_evalY(Y_Kalman, currentSpeed, currentYaw, (float)dT);
-			printf("%f  -  %f \n", mu_kk_1[0][0], mu_kk_1[1][0]);
+			printf("dt : %f - speed : %f - yaw : %f" ,dT,currentSpeed,currentYaw);
 
 
 
