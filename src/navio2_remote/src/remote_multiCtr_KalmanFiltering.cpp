@@ -47,6 +47,7 @@ float GPSLat;
 float GPSLon;
 ros::Time currentTimeGPS;
 ros::Time previousTimeGPS;
+double dtGPS; 
 
 //Roll Errors 1
 float err1;
@@ -186,7 +187,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	if(the_time < 15) RollOffset = currentRoll;
 
 	currentRoll -= RollOffset;
-	ROS_INFO("New Roll %f", currentRoll);
+	//ROS_INFO("New Roll %f", currentRoll);
 }
 
 void read_GPS(sensor_msgs::NavSatFix gps_msg)
@@ -195,10 +196,12 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	previousTimeGPS = currentTimeGPS;
 	currentTimeGPS = gps_msg.header.stamp;
 
-	//current roll angle
+	//current lat lon and dt
 	GPSLat = gps_msg.latitude;
 	GPSLon = gps_msg.longitude;
-	ROS_INFO("Time: %d - Lat: %f - Lon: %f", the_time, GPSLat, GPSLon);
+	dTnsec = (currentTimeGPS.nsec-previousTimeGPS.nsec)/(1e9f);
+
+	ROS_INFO("Time: %d - Lat: %f - Lon: %f", dTnsec, GPSLat, GPSLon);
 }
 
 int main(int argc, char **argv)
