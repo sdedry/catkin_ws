@@ -143,7 +143,7 @@ int pid_Servo_Output(int desired_roll) //in degrees
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
 	*/
-	double dT = currentTime.toSec()-previousTime.toSec;
+	double dT = currentTime.toSec()-previousTime.toSec();
 
 	if(dT > 0)
 		derr1 = (err1 - previousErr)/dT;
