@@ -193,11 +193,11 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 {
 	//save the time of the aquisition
 	previousTimeGPS = currentTimeGPS;
-	currentTimeGPS = imu_msg.header.stamp;
+	currentTimeGPS = gps_msg.header.stamp;
 
 	//current roll angle
 	GPSLat = gps_msg.latitude;
-	GPSLon = gps_msg.longitude
+	GPSLon = gps_msg.longitude;
 	ROS_INFO("Time: %d - Lat: %f - Lon: %f", the_time, GPSLat, GPSLon);
 }
 
@@ -279,7 +279,7 @@ int main(int argc, char **argv)
 	
 	//subscribe to imu topic
 	ros::Subscriber imu_sub = n.subscribe("imu_readings", 1000, read_Imu);
-	ros::Subscriber imu_sub = n.subscribe("gps_readings", 1000, read_GPS);
+	ros::Subscriber gps_sub = n.subscribe("gps_readings", 1000, read_GPS);
 
 	//running rate = freq Hz
 	ros::Rate loop_rate(freq);
