@@ -181,7 +181,7 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 
 	//current roll angle
 	currentRoll = imu_msg.orientation.x;
-	ROS_INFO("Time %d", the_time);
+	//ROS_INFO("Time %d", the_time);
 
 	//keep calibration after 15 seconds
 	if(the_time < 15) RollOffset = currentRoll;
