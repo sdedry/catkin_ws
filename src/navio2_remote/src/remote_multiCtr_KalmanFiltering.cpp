@@ -42,7 +42,7 @@ float currentSpeed;
 ros::Time currentTimeSpeed;
 ros::Time previousTimeSpeed;
 
-//Variables for GPS and Kalman filtering
+//Variables for GPS
 
 float GPS_lat;
 float GPS_lon;
@@ -52,14 +52,23 @@ double dtGPS;
 float currentYaw;
 float base_lat = 46.51849177;
 float base_lon = 6.56666458;
-float X_gps;
-float Y_gps;
+float X_gps = 0.0;
+float Y_gps = 0.0;
+int GPS_data_rec = 0;
+double dtspeed;
+double dtyaw;
 
+//Variables for Kalman
 float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 float Kalman_Q[2][2] = {{0.5*1/1e5, 0.0},{0.0, 0.5*1/1e5}};
 float Kalman_R[2][2] = {{0.1, 0.0},{0.0, 0.1}};
 // note that Kalman_H is identity matrix
 // note that the jacobian of the system is the identity matrix
+float X_Kalman;
+float Y_Kalman;
+float P_kk_1[2][2];
+float mu_kk_1[2][1];
+
 
 //Roll Errors 1
 float err1;
@@ -103,6 +112,7 @@ float pid_Ref_Output(int desired_roll) //in degrees
 	double dTnsec = (timeNow - previousTime.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
+	dtyaw = dT;
 
 	if(dT > 0)
 		derr2 = (err2 - previousErr)/dT;
@@ -165,6 +175,7 @@ int pid_Motor_Output(int desired_speed) // desired speed in m/s
 	double dTnsec = (timeNow - previousTimeSpeed.nsec); // in nanoseconds
 	if(dTnsec < 0) dTnsec += 1e9; // watch out cause its in ns so if it goes beyond 1 sec ...
 	double dT = dTnsec/(1e9f);
+	dtspeed = dt;
 
 	if(dT > 0)
 		derr_m = (err_m - previousErr)/dT;
@@ -195,13 +206,13 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	currentYaw = (imu_msg.orientation.z)*3.141592/180.0+0.6;
 	//current roll angle
 	currentRoll = imu_msg.orientation.x;
-	ROS_INFO("Time %d", the_time);
+	//ROS_INFO("Time %d", the_time);
 
 	//keep calibration after 15 seconds
 	if(the_time < 15) RollOffset = currentRoll;
 
 	currentRoll -= RollOffset;
-	ROS_INFO("New Roll %f", currentRoll);
+	//ROS_INFO("New Roll %f", currentRoll);
 }
 
 void read_GPS(sensor_msgs::NavSatFix gps_msg)
@@ -214,8 +225,19 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	GPS_lat = gps_msg.latitude;
 	GPS_lon = gps_msg.longitude;
 	dtGPS = (currentTimeGPS - previousTimeGPS);
+	GPS_data_rec += 1;
 
 	//ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
+}
+
+float Kalman_evalX (float x, float v, float alpha, float dt){
+	float x2 = x + v*cos(alpha)*dt;
+	return x2;
+}
+
+float Kalman_evalY (float y, float v, float alpha, float dt){
+	float y2 = y + v*cos(alpha)*dt;
+	return y2;
 }
 
 int main(int argc, char **argv)
@@ -435,9 +457,19 @@ int main(int argc, char **argv)
 		/*******************************************/
 		Y_gps = (GPS_lat - base_lat)*1111.6/10000*1e6;
 		X_gps = (GPS_lon - base_lon)*767.4/10000*1e6;
-		printf("x = %f \n y = %f",X_gps,Y_gps);
+		printf("dtyaw = %f \n dtspeed = %f",dtyaw,dtspeed);
 
-		if (the_time>20){
+		if (GPS_data_rec => 1) //Kalman filtering can start
+		{ 
+			if (GPS_data_rec == 1) //initialize the first value of GPS to Kalman 
+			{
+				X_Kalman = X_gps;
+				Y_Kalman = Y_gps;
+			}
+			/*
+			mu_kk_1[0][0] = Kalman_evalX(x v alpha dt)
+			mu_kk_1[1][0] = */
+
 
 
 		}
