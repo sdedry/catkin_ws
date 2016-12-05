@@ -47,9 +47,8 @@ float GPSLat;
 float GPSLon;
 double currentTimeGPS;
 double previousTimeGPS;
-//ros::Time currentTimeGPS;
-//ros::Time previousTimeGPS;
 double dtGPS; 
+float currentYaw;
 
 //Roll Errors 1
 float err1;
@@ -181,15 +180,17 @@ void read_Imu(sensor_msgs::Imu imu_msg)
 	previousTime = currentTime;
 	currentTime = imu_msg.header.stamp;
 
+	//current yaw angle (for GPS kalman filtering)
+	currentYaw = imu.msg.orientation.z+;
 	//current roll angle
 	currentRoll = imu_msg.orientation.x;
-	//ROS_INFO("Time %d", the_time);
+	ROS_INFO("Time %d", the_time);
 
 	//keep calibration after 15 seconds
 	if(the_time < 15) RollOffset = currentRoll;
 
 	currentRoll -= RollOffset;
-	//ROS_INFO("New Roll %f", currentRoll);
+	ROS_INFO("New Roll %f", currentYaw);
 }
 
 void read_GPS(sensor_msgs::NavSatFix gps_msg)
@@ -201,13 +202,9 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	//current lat lon and dt
 	GPSLat = gps_msg.latitude;
 	GPSLon = gps_msg.longitude;
-	//long newgpstime = currentTimeGPS.sec;
-	//long oldgpstime = previousTimeGPS.sec;
+	dtGPS = (currentTimeGPS - previousTimeGPS);
 
-	dtGPS = (currentTimeGPS - previousTimeGPS);//(1e9f);
-	//if(dtGPS < 0) dtGPS += 1.0;
-
-	ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
+	//ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
 }
 
 int main(int argc, char **argv)
@@ -425,6 +422,7 @@ int main(int argc, char **argv)
 		/*******************************************/
 		/*        KALMAN FILTERING SECTION         */
 		/*******************************************/
+
 
 		
 
