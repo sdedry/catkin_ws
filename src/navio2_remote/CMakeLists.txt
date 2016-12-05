@@ -207,6 +207,12 @@ target_link_libraries(remote_multiCtr rcinput)
 target_link_libraries(remote_multiCtr pwm)
 target_link_libraries(remote_multiCtr util)
 
+add_executable(remote_multiCtr_KalmanFiltering src/remote_multiCtr_KalmanFiltering.cpp)
+target_link_libraries(remote_multiCtr_KalmanFiltering ${catkin_LIBRARIES})
+target_link_libraries(remote_multiCtr_KalmanFiltering rcinput)
+target_link_libraries(remote_multiCtr_KalmanFiltering pwm)
+target_link_libraries(remote_multiCtr_KalmanFiltering util)
+
 
 #target_link_libraries(remote_pub_sub_sat_8_shape rgbled)
 
