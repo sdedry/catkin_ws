@@ -203,7 +203,7 @@ void read_GPS(sensor_msgs::NavSatFix gps_msg)
 	long oldgpstime = previousTimeGPS.nsec;
 
 	dtGPS = (newgpstime - oldgpstime)/(1e9f);
-	if(dtGPS < 0) dtGPS += 1e9;
+	if(dtGPS < 0) dtGPS += 1.0;
 
 	ROS_INFO("dt: %f - Lat: %f - Lon: %f", dtGPS, GPSLat, GPSLon);
 }
