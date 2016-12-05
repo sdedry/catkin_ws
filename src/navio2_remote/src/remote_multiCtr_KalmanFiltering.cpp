@@ -64,7 +64,7 @@ float Kalman_S_inv[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 float Kalman_K[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 float Kalman_eye[2][2] = {{1.0, 0.0},{0.0, 1.0}};
 float Kalman_eye_min_K[2][2] = {{0.0, 0.0},{0.0, 0.0}};
-float Kalman_K_ybar[2][2] = {{0.0, 0.0},{0.0, 0.0}};
+float Kalman_K_ybar[2][1] = {{0.0},{0.0}};
 
 // note that Kalman_H is identity matrix
 // note that the jacobian of the system is the identity matrix
@@ -288,7 +288,7 @@ void invert22 (float a[2][2], float b[2][2])
 	b[1][1] = 1.0/det*a[0][0];
 }
 
-void multip22by22 (float a[2][2], float b[2][2], float c[2][2]) //in degrees
+void multip22by22 (float a[2][2], float b[2][2], float c[2][2])
 {
 	c[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0];
 	c[0][1] = a[0][0] * b[0][1] + a[0][1] * b[1][1];
@@ -296,11 +296,27 @@ void multip22by22 (float a[2][2], float b[2][2], float c[2][2]) //in degrees
 	c[1][1] = a[1][0] * b[0][1] + a[1][1] * b[1][1];
 }
 
-void multip22by21 (float a[2][2], float b[2][1], float c[2][1]) //in degrees
+void multip22by21 (float a[2][2], float b[2][1], float c[2][1])
 {
 
 	c[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0];
-	c[1][0] = a[1][0]*b[0][0] + a[1][1]*b[1][0];
+	c[1][0] = a[1][0] * b[0][0] + a[1][1] * b[1][0];
+}
+
+void equal21 (float a[2][1], float b[2][1])
+{
+
+	b[0][0] = a[0][0];
+	b[1][0] = a[1][0];
+}
+
+void equal22 (float a[2][2], float b[2][2])
+{
+
+	b[0][0] = a[0][0];
+	b[1][0] = a[1][0];
+	b[0][1] = a[0][1];
+	b[1][1] = a[1][1];
 }
 
 int main(int argc, char **argv)
@@ -555,8 +571,8 @@ int main(int argc, char **argv)
 			}
 
 			else{
-				mu_kalman = mu_kk_1;
-				P = P_kk_1;
+				equal21(mu_kk_1,mu_kalman);
+				equal22(P_kk_1,Kalman_P);
 			}
 			
 		}
