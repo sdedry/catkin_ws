@@ -69,11 +69,11 @@ float Kalman_K_ybar[2][1] = {{0.0},{0.0}};
 // note that Kalman_H is identity matrix
 // note that the jacobian of the system is the identity matrix
 
-float mu_kalman[2][1];
+float mu_kalman[2][1] = {{0.0},{0.0}};
 float P_kk_1[2][2];
 float mu_kk_1[2][1];
 float ybar[2][1];
-float z_gps[2][1];
+float z_gps[2][1] = {{0.0},{0.0}};
 
 //Roll Errors 1
 float err1;
