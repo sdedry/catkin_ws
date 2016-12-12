@@ -247,7 +247,7 @@ float Kalman_evalX (float x, float v, float alpha, float dt){
 }
 
 float Kalman_evalY (float y, float v, float alpha, float dt){
-	float y2 = y + v*cos(alpha)*dt;
+	float y2 = y + v*sin(alpha)*dt;
 	return y2;
 }
 
@@ -539,7 +539,7 @@ int main(int argc, char **argv)
 		/*******************************************/
 
 
-		z_gps[0][0] = (GPS_lat - base_lat)*1111.6/10000*1e6;
+		z_gps[0][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
 		z_gps[1][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
 
 		if (GPS_data_rec >= 1) //Kalman filtering can start
