@@ -237,7 +237,7 @@ void update_mf_msg(sensor_msgs::MagneticField* mf_msg, InertialSensor* imu)
 	mf_msg->magnetic_field.y = my;
 	mf_msg->magnetic_field.z = mz;
 
-	ROS_INFO("Magnetic Field : X = %+7.3f, Y = %+7.3f, Z = %+7.3f", mx, my, mz);
+	//ROS_INFO("Magnetic Field : X = %+7.3f, Y = %+7.3f, Z = %+7.3f", mx, my, mz);
 }
 
 int main(int argc, char **argv)
