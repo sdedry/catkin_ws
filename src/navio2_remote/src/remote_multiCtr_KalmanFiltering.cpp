@@ -539,9 +539,9 @@
 			/*        KALMAN FILTERING SECTION         */
 			/*******************************************/
 
-
-			z_gps[0][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
-			z_gps[1][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
+			z_gps[0][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
+			z_gps[1][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
+			
 			
 			if (the_time>20)
 			{
@@ -559,7 +559,7 @@
 				mu_kk_1[0][0] = Kalman_evalX(mu_kalman[0][0], currentSpeed, currentYaw, (float)dT);
 				mu_kk_1[1][0] = Kalman_evalY(mu_kalman[1][0], currentSpeed, currentYaw, (float)dT);
 
-				//P_kk_1 = eval(J)*P*eval(J)' + Q / J is identity matrix
+				//P_kk_1 = eval(J)*P*eval(J)' + Q // J is identity matrix
 				sum22(Kalman_P,Kalman_Q,P_kk_1);
 				
 
