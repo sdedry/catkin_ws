@@ -491,7 +491,7 @@
 
 			//read desired roll angle with remote ( 1250 to 1750 ) to range limited by defines
 			desired_roll = -((float)rcin.read(2)-1500.0f)*max_roll_angle/250.0f;
-			printf("recieved pwm %f\n", (float)rcin.read(2);
+			printf("recieved pwm %f\n", (float)rcin.read(2));
 			/*******************************************/
 			/*             VELOCITY SECTION            */
 			/*******************************************/
