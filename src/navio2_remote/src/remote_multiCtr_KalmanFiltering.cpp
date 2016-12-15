@@ -38,6 +38,9 @@
 	ros::Time currentTime;
 	ros::Time previousTime;
 
+	float currentYaw;
+	float recYaw; //Yaw information recieved
+
 	float currentSpeed;
 	ros::Time currentTimeSpeed;
 	ros::Time previousTimeSpeed;
@@ -49,7 +52,6 @@
 	double currentTimeGPS;
 	double previousTimeGPS;
 	double dtGPS; 
-	float currentYaw;
 	float base_lat = 46.51849177;
 	float base_lon = 6.56666458;
 	int GPS_data_rec = 0; 
@@ -97,6 +99,7 @@
 	float Kd_m;
 
 	float RollOffset = 0; // offset to add to roll measurement for initial calibration
+	float YawOffset = 0; //Due to the fact that the yaw starts at the same value regardeless of real yaw angle
 
 	int the_time = 0;
 
@@ -215,14 +218,17 @@
 		currentTime = imu_msg.header.stamp;
 
 		//current yaw angle (for GPS kalman filtering)
-		currentYaw = (imu_msg.orientation.z)*3.141592/180.0+0.6;
+		recYaw = imu_msg.orientation.z;
 		//current roll angle
 		currentRoll = imu_msg.orientation.x;
 		//ROS_INFO("Time %d", the_time);
 
 		//keep calibration after 15 seconds
 		if(the_time < 15) RollOffset = currentRoll;
+		if(the_time < 20) YawOffset = 180 - recYaw; //Initialize motorbike with an orientation of pi (west direction)
 
+		recYaw += YawOffset;
+		currentYaw = recYaw*3.141592/180.0; //Converting into radians 
 		currentRoll -= RollOffset;
 		//ROS_INFO("New Roll %f", currentRoll);
 	}
@@ -554,7 +560,7 @@
 
 				}
 				double dT = currentTime.toSec()-previousTime.toSec();
-				//printf("the time : %d - dt : %f - speed : %f - yaw : %f \n es_x : %f - es_y : %f\n" , the_time, dT,currentSpeed,currentYaw,mu_kalman[0][0],mu_kalman[0][1]);
+				printf("the time : %d - dt : %f - speed : %f - yaw : %f \n es_x : %f - es_y : %f\n" , the_time, dT,currentSpeed,currentYaw,mu_kalman[0][0],mu_kalman[0][1]);
 
 				mu_kk_1[0][0] = Kalman_evalX(mu_kalman[0][0], currentSpeed, currentYaw, (float)dT);
 				mu_kk_1[1][0] = Kalman_evalY(mu_kalman[1][0], currentSpeed, currentYaw, (float)dT);
