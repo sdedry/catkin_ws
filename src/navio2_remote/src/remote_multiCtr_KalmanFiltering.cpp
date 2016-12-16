@@ -491,7 +491,7 @@
 
 			//read desired roll angle with remote ( 1250 to 1750 ) to range limited by defines
 			desired_roll = -((float)rcin.read(2)-1500.0f)*max_roll_angle/250.0f;
-			printf("recieved pwm %f\n", (float)rcin.read(2));
+			//printf("recieved pwm %f\n", (float)rcin.read(2));
 			/*******************************************/
 			/*             VELOCITY SECTION            */
 			/*******************************************/
@@ -549,6 +549,7 @@
 			z_gps[1][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
 			
 			
+			if (the_time<=20) printf("the time : %d --- Calibration in process (Roll = 0 , Yaw = 180)" , the_time);
 			if (the_time>20)
 			{
 
@@ -560,7 +561,8 @@
 
 				}
 				double dT = currentTime.toSec()-previousTime.toSec();
-				//printf("the time : %d - dt : %f - speed : %f - yaw : %f \n es_x : %f - es_y : %f\n" , the_time, dT,currentSpeed,currentYaw,mu_kalman[0][0],mu_kalman[0][1]);
+				
+				printf("the time : %d - dt : %f - speed : %f - yaw : %f \n es_x : %f - es_y : %f\n" , the_time, dT,currentSpeed,currentYaw,mu_kalman[0][0],mu_kalman[0][1]);
 
 				mu_kk_1[0][0] = Kalman_evalX(mu_kalman[0][0], currentSpeed, currentYaw, (float)dT);
 				mu_kk_1[1][0] = Kalman_evalY(mu_kalman[1][0], currentSpeed, currentYaw, (float)dT);
