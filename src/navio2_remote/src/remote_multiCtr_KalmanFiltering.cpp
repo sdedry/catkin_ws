@@ -52,8 +52,8 @@
 	double currentTimeGPS;
 	double previousTimeGPS;
 	double dtGPS; 
-	float base_lat = 46.51849177;
-	float base_lon = 6.56666458;
+	float base_lat; //= 46.51849177;
+	float base_lon; // = 6.56666458;
 	int GPS_data_rec = 0; 
 	int Update_phase = 0;
 	int first_gps = 1;
@@ -340,11 +340,9 @@
 		if(argc == 1)
 		{
 			//case with default params
-			printf("argc = 1\n");
 		}
 		else if(argc == 2)
 		{
-			printf("argc = 2\n");
 			//case with frequency
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
@@ -356,7 +354,6 @@
 		}
 		else if(argc == 3)
 		{
-			printf("argc = 3\n");
 			//case with frequency and saturation
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
@@ -369,9 +366,8 @@
 			if(atoi(argv[2]) > 2000) saturation = 2000;
 			else saturation = atoi(argv[2]);
 		}
-		else if(argc == 6)
+		else if(argc == 8)
 		{
-			printf("argc = 6\n");
 			//case with frequency and saturation and PID for motor
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
@@ -387,6 +383,8 @@
 			Kp_m = atof(argv[3]);
 			Ki_m = atof(argv[4]);
 			Kd_m = atof(argv[5]);
+			base_lat = atof(argv[6]);
+			base_lon = atof(argv[7]);
 			
 		}
 		else
