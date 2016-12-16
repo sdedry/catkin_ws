@@ -340,9 +340,11 @@
 		if(argc == 1)
 		{
 			//case with default params
+			printf("argc = 1\n");
 		}
 		else if(argc == 2)
 		{
+			printf("argc = 2\n");
 			//case with frequency
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
@@ -354,6 +356,7 @@
 		}
 		else if(argc == 3)
 		{
+			printf("argc = 3\n");
 			//case with frequency and saturation
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
@@ -368,6 +371,7 @@
 		}
 		else if(argc == 6)
 		{
+			printf("argc = 6\n");
 			//case with frequency and saturation and PID for motor
 			if(atoi(argv[1]) > 0 )
 				freq = atoi(argv[1]);
