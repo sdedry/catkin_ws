@@ -549,7 +549,7 @@
 			z_gps[1][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
 			
 			
-			if (the_time<=20) printf("the time : %d --- Calibration in process (Roll = 0 , Yaw = 180)" , the_time);
+			if (the_time<=20) printf("the time : %d - Calibration (Roll = 0 , Yaw = 180) \n" , the_time);
 			if (the_time>20)
 			{
 
