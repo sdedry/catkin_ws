@@ -56,7 +56,7 @@
 	float base_lon; // = 6.56666458;
 	int GPS_data_rec = 0; 
 	int Update_phase = 0;
-	int first_gps = 1;
+	int first_gps = 0;
 
 	//Variables for Kalman
 	float Kalman_P[2][2] = {{0.0, 0.0},{0.0, 0.0}};
@@ -142,6 +142,7 @@
 		return controlSignal; 
 	}
 
+	//input of this function is the output of the function PID ref output
 	int pid_Servo_Output(int desired_roll) //in degrees
 	{
 		//calculate errors
@@ -548,7 +549,8 @@
 			/*******************************************/
 
 			z_gps[0][0] = (GPS_lon - base_lon)*767.4/10000*1e6;
-			z_gps[1][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; //neglect the curvature of earth
+			z_gps[1][0] = (GPS_lat - base_lat)*1111.6/10000*1e6; 
+			//neglect the curvature of earth by applying coeff to convert lat/lon in x/y
 			
 			
 			if (the_time<=20) printf("the time : %d - Calibration (Roll = 0 , Yaw = 180) \n" , the_time);
